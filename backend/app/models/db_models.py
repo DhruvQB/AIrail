@@ -58,8 +58,8 @@ class User(Base):
 class Session(Base):
     __tablename__ = "sessions"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    id: Mapped[str] = mapped_column(
+        String(64), primary_key=True
     )
     user_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
@@ -90,8 +90,8 @@ class Message(Base):
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
-    session_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+    session_id: Mapped[str] = mapped_column(
+        String(64),
         ForeignKey("sessions.id", ondelete="CASCADE"),
         nullable=False,
         index=True,

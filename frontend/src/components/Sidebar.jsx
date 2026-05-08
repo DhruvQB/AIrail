@@ -5,6 +5,7 @@ export default function Sidebar({
   activeChat,
   onSelectChat,
   onNewChat,
+  onDeleteChat,
   searchQuery,
   onSearchChange,
 }) {
@@ -58,6 +59,15 @@ export default function Sidebar({
                 <div className="chat-item-preview">{chat.preview}</div>
               )}
             </div>
+            {onDeleteChat && (
+              <button
+                className="chat-item-delete"
+                title="Delete chat"
+                onClick={(e) => { e.stopPropagation(); onDeleteChat(chat.id); }}
+              >
+                ×
+              </button>
+            )}
           </div>
         ))}
       </div>

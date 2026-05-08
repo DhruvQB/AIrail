@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import Sidebar from '../components/Sidebar';
 import ChatArea from '../components/ChatArea';
 import ChatInput from '../components/ChatInput';
@@ -8,65 +8,105 @@ function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
 }
 
-function loadChats() {
-  try {
-    return JSON.parse(localStorage.getItem('airail_chats') || '[]');
-  } catch {
-    return [];
-  }
-}
-
-function saveChats(chats) {
-  localStorage.setItem('airail_chats', JSON.stringify(chats));
-}
-
 export default function ChatPage() {
-  const [chats, setChats] = useState(loadChats);
+  const [chats, setChats] = useState([]);
   const [activeChatId, setActiveChatId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Persist chats
-  useEffect(() => {
-    saveChats(chats);
-  }, [chats]);
+  const [historyLoaded, setHistoryLoaded] = useState(false);
+  const loadedSessionIds = useRef(new Set()); // track which sessions have been fully loaded
 
   const activeChat = chats.find((c) => c.id === activeChatId);
   const messages = activeChat?.messages || [];
 
+  // ---------------------------------------------------------------------------
+  // Load session list from backend on mount
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    const fetchSessions = async () => {
+      try {
+        const res = await api.get('/chat/sessions');
+        const sessions = res.data.sessions || [];
+        const chatList = sessions.map((s) => ({
+          id: s.sessionId,
+          sessionId: s.sessionId,
+          title: s.title || 'New Chat',
+          preview: s.preview || '',
+          messages: [], // lazy-loaded when selected
+          createdAt: new Date(s.createdAt).getTime(),
+        }));
+        setChats(chatList);
+        if (chatList.length > 0) {
+          setActiveChatId(chatList[0].id);
+        }
+      } catch (err) {
+        console.error('Failed to load sessions:', err);
+      } finally {
+        setHistoryLoaded(true);
+      }
+    };
+    fetchSessions();
+  }, []);
+
+  // ---------------------------------------------------------------------------
+  // Lazy-load messages when a session is selected
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    if (!activeChatId) return;
+    if (loadedSessionIds.current.has(activeChatId)) return; // already loaded
+
+    const fetchMessages = async () => {
+      try {
+        const res = await api.get(`/chat/sessions/${activeChatId}/messages`);
+        const msgs = res.data.messages || [];
+        loadedSessionIds.current.add(activeChatId);
+        setChats((prev) =>
+          prev.map((c) =>
+            c.id === activeChatId
+              ? { ...c, messages: msgs.map((m) => ({ role: m.role, content: m.content })) }
+              : c
+          )
+        );
+      } catch (err) {
+        console.error('Failed to load messages:', err);
+      }
+    };
+    fetchMessages();
+  }, [activeChatId]);
+
+  // ---------------------------------------------------------------------------
+  // Create a new chat session
+  // ---------------------------------------------------------------------------
   const createNewChat = useCallback(() => {
+    const newId = generateId() + '-' + generateId();
     const newChat = {
-      id: generateId(),
-      sessionId: generateId() + '-' + generateId(),
+      id: newId,
+      sessionId: newId,
       title: 'New Chat',
       preview: '',
       messages: [],
       createdAt: Date.now(),
     };
+    loadedSessionIds.current.add(newId); // mark as loaded (it's empty)
     setChats((prev) => [newChat, ...prev]);
     setActiveChatId(newChat.id);
     return newChat;
   }, []);
 
+  // ---------------------------------------------------------------------------
+  // Send a message
+  // ---------------------------------------------------------------------------
   const sendMessage = useCallback(
     async (text) => {
       let chat = activeChat;
       if (!chat) {
-        chat = {
-          id: generateId(),
-          sessionId: generateId() + '-' + generateId(),
-          title: 'New Chat',
-          preview: '',
-          messages: [],
-          createdAt: Date.now(),
-        };
-        setChats((prev) => [chat, ...prev]);
-        setActiveChatId(chat.id);
+        chat = createNewChat();
+        // Wait a tick for state to settle
+        await new Promise((r) => setTimeout(r, 0));
       }
 
       const userMsg = { role: 'user', content: text };
-      const updatedTitle =
-        chat.messages.length === 0 ? text.slice(0, 40) : chat.title;
+      const updatedTitle = chat.messages.length === 0 ? text.slice(0, 40) : chat.title;
 
       setChats((prev) =>
         prev.map((c) =>
@@ -110,25 +150,37 @@ export default function ChatPage() {
           role: 'assistant',
           content: `⚠️ Error: ${err.response?.data?.detail || err.message || 'Something went wrong.'}`,
         };
-
         setChats((prev) =>
           prev.map((c) =>
-            c.id === chat.id
-              ? { ...c, messages: [...c.messages, errMsg] }
-              : c
+            c.id === chat.id ? { ...c, messages: [...c.messages, errMsg] } : c
           )
         );
       } finally {
         setIsLoading(false);
       }
     },
-    [activeChat]
+    [activeChat, createNewChat]
+  );
+
+  // ---------------------------------------------------------------------------
+  // Delete a session
+  // ---------------------------------------------------------------------------
+  const deleteChat = useCallback(
+    async (chatId) => {
+      try {
+        await api.delete(`/chat/sessions/${chatId}`);
+      } catch (err) {
+        console.error('Failed to delete session:', err);
+      }
+      loadedSessionIds.current.delete(chatId);
+      setChats((prev) => prev.filter((c) => c.id !== chatId));
+      if (activeChatId === chatId) setActiveChatId(null);
+    },
+    [activeChatId]
   );
 
   const handleFeatureClick = useCallback(
-    (prompt) => {
-      sendMessage(prompt);
-    },
+    (prompt) => sendMessage(prompt),
     [sendMessage]
   );
 
@@ -139,6 +191,7 @@ export default function ChatPage() {
         activeChat={activeChatId}
         onSelectChat={setActiveChatId}
         onNewChat={createNewChat}
+        onDeleteChat={deleteChat}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
@@ -158,7 +211,7 @@ export default function ChatPage() {
 
         <ChatArea
           messages={messages}
-          isLoading={isLoading}
+          isLoading={isLoading || !historyLoaded}
           onFeatureClick={handleFeatureClick}
         />
 
