@@ -1,0 +1,111 @@
+{
+  "success": true,
+  "data": {
+    "fromStationCode": "RJT",
+    "toStationCode": "ABD",
+    "totalTrains": 2,
+    "trainTypeFilter": {
+      "code": "ALL",
+      "description": "All Train Types"
+    },
+    "trains": [
+      {
+        "trainNumber": "19120",
+        "trainName": "Gandhinagar Capital InterCity Express",
+        "hindiName": "\u0935\u0947\u0930\u093e\u0935\u0932 - \u0917\u093e\u0902\u0927\u0940\u0928\u0917\u0930 \u0915\u0948\u092a\u093f\u091f\u0932 \u0907\u0902\u091f\u0930\u0938\u093f\u091f\u0940 \u090f\u0915\u094d\u0938\u092a\u094d\u0930\u0947\u0938",
+        "type": "Mail/Express",
+        "sourceStationCode": "VRL",
+        "sourceStationName": "Rajkot Jn",
+        "destinationStationCode": "GNC",
+        "destinationStationName": "Ambli Road",
+        "runningDaysBitmap": 127,
+        "runningDays": {
+          "days": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            "Sun"
+          ],
+          "allDays": true,
+          "isStartingToday": true
+        },
+        "returnTrainNumber": "19119",
+        "travelTimeMinutes": 480,
+        "totalHalts": 18,
+        "distanceKm": 453.2,
+        "avgSpeedKmph": 52,
+        "createdAt": 1759422278000,
+        "updatedAt": 1771004860544,
+        "fromStationSchedule": {
+          "arrivalMinutes": 686,
+          "departureMinutes": 691,
+          "day": 1,
+          "platform": "3",
+          "distanceFromSourceKm": 195.1
+        },
+        "toStationSchedule": {
+          "arrivalMinutes": 903,
+          "departureMinutes": 905,
+          "day": 1,
+          "platform": "2",
+          "distanceFromSourceKm": 425.1
+        }
+      },
+      {
+        "trainNumber": "22960",
+        "trainName": "Vadodara Intercity Express",
+        "hindiName": "\u091c\u093e\u092e\u0928\u0917\u0930 - \u0935\u0921\u094b\u0926\u0930\u093e \u0907\u0902\u091f\u0930\u0938\u093f\u091f\u0940 \u090f\u0915\u094d\u0938\u092a\u094d\u0930\u0947\u0938",
+        "type": "Superfast Express",
+        "sourceStationCode": "JAM",
+        "sourceStationName": "Rajkot Jn",
+        "destinationStationCode": "BRC",
+        "destinationStationName": "Ambli Road",
+        "runningDaysBitmap": 127,
+        "runningDays": {
+          "days": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            "Sun"
+          ],
+          "allDays": true,
+          "isStartingToday": true
+        },
+        "returnTrainNumber": "22959",
+        "travelTimeMinutes": 420,
+        "totalHalts": 15,
+        "distanceKm": 431.5,
+        "avgSpeedKmph": 56,
+        "createdAt": 1759422278000,
+        "updatedAt": 1771004858996,
+        "fromStationSchedule": {
+          "arrivalMinutes": 362,
+          "departureMinutes": 367,
+          "day": 1,
+          "platform": "4",
+          "distanceFromSourceKm": 84.5
+        },
+        "toStationSchedule": {
+          "arrivalMinutes": 583,
+          "departureMinutes": 585,
+          "day": 1,
+          "platform": "2",
+          "distanceFromSourceKm": 314.5
+        }
+      }
+    ]
+  },
+  "meta": {
+    "timestamp": "2026-05-07T05:48:10.598Z",
+    "traceId": "81048c7b-6a03-466e-9225-36e89f53fdc6",
+    "executionTime": 10,
+    "service": "TrainAPI_V1",
+    "method": "getTrainsBetweenStations"
+  }
+}

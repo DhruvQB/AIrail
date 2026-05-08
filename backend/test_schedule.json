@@ -1,0 +1,99 @@
+{
+  "success": true,
+  "data": {
+    "train": {
+      "number": "12952",
+      "name": "Mumbai Central Tejas Rajdhani Express",
+      "type": "Rajdhani Express",
+      "sourceStationCode": "NDLS",
+      "destinationStationCode": "MMCT"
+    },
+    "route": [
+      {
+        "sequence": 1,
+        "stationCode": "NDLS",
+        "stationName": "New Delhi",
+        "departureMinutes": 1015,
+        "day": 1,
+        "distanceFromSourceKm": 0,
+        "isHalt": true
+      },
+      {
+        "sequence": 73,
+        "stationCode": "KOTA",
+        "stationName": "Kota Jn",
+        "arrivalMinutes": 1290,
+        "departureMinutes": 1300,
+        "day": 1,
+        "distanceFromSourceKm": 465.5,
+        "isHalt": true
+      },
+      {
+        "sequence": 103,
+        "stationCode": "NAD",
+        "stationName": "Nagda Jn",
+        "arrivalMinutes": 1437,
+        "departureMinutes": 1439,
+        "day": 1,
+        "distanceFromSourceKm": 690.9,
+        "isHalt": true
+      },
+      {
+        "sequence": 109,
+        "stationCode": "RTM",
+        "stationName": "Ratlam Jn",
+        "arrivalMinutes": 30,
+        "departureMinutes": 33,
+        "day": 2,
+        "distanceFromSourceKm": 732,
+        "isHalt": true
+      },
+      {
+        "sequence": 148,
+        "stationCode": "BRC",
+        "stationName": "Vadodara Jn",
+        "arrivalMinutes": 220,
+        "departureMinutes": 230,
+        "day": 2,
+        "distanceFromSourceKm": 992.1,
+        "isHalt": true
+      },
+      {
+        "sequence": 174,
+        "stationCode": "ST",
+        "stationName": "Surat",
+        "arrivalMinutes": 313,
+        "departureMinutes": 318,
+        "day": 2,
+        "distanceFromSourceKm": 1121.8,
+        "isHalt": true
+      },
+      {
+        "sequence": 217,
+        "stationCode": "BVI",
+        "stationName": "Borivali",
+        "arrivalMinutes": 458,
+        "departureMinutes": 460,
+        "day": 2,
+        "distanceFromSourceKm": 1355.3,
+        "isHalt": true
+      },
+      {
+        "sequence": 235,
+        "stationCode": "MMCT",
+        "stationName": "Mumbai Ctrl",
+        "arrivalMinutes": 515,
+        "day": 2,
+        "distanceFromSourceKm": 1384.8,
+        "isHalt": true
+      }
+    ]
+  },
+  "meta": {
+    "timestamp": "2026-05-07T05:50:14.407Z",
+    "traceId": "889b4519-daeb-4ccf-ad44-0a796c4f97c0",
+    "executionTime": 22,
+    "service": "TrainAPI_V1",
+    "method": "getTrainSchedule"
+  }
+}

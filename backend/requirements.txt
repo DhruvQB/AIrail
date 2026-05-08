@@ -1,0 +1,53 @@
+# ── Web Framework ──────────────────────────────────────────────────────────
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# ── Database ───────────────────────────────────────────────────────────────
+SQLAlchemy==2.0.35
+asyncpg==0.29.0
+
+# ── LangGraph + LangChain ─────────────────────────────────────────────────
+langgraph==0.2.57
+langchain==0.3.25
+langchain-core==0.3.85
+langchain-groq==0.2.5
+langchain-community==0.4.1
+langchain-text-splitters==0.3.11
+
+# ── Authentication & Security ──────────────────────────────────────────────
+python-jose==3.5.0
+passlib==1.7.4
+bcrypt==5.0.0
+
+# ── Numpy ─────────────────────────────────────────────────────────────────
+numpy==1.26.4
+
+# ── Vector DB ──────────────────────────────────────────────────────────────
+qdrant-client==1.11.3
+
+# ── Embeddings & Reranking ────────────────────────────────────────────────
+sentence-transformers==3.1.1
+flashrank==0.2.8
+fastembed==0.8.0
+
+# ── RAG & Tracing ─────────────────────────────────────────────────────────
+langchain-qdrant==0.1.4
+opik==1.1.2
+
+# ── Tools & External APIs ──────────────────────────────────────────────────
+ntes-client==0.1.3
+
+# ── Settings ───────────────────────────────────────────────────────────────
+pydantic==2.9.2
+pydantic-settings==2.14.0
+
+# ── HTTP Client ────────────────────────────────────────────────────────────
+httpx==0.27.2
+
+# ── PDF Processing (RAG ingestion) ────────────────────────────────────────
+pypdf==4.3.1
+
+# ── Utilities ──────────────────────────────────────────────────────────────
+python-dotenv==1.0.1
+tenacity==8.5.0
+typing-extensions==4.12.2
