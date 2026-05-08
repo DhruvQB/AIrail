@@ -22,8 +22,8 @@ from app.rag.ingest import run_startup_ingestion
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # ── startup ────────────────────────────────────────────────────────────
+    print(f"[startup] ENV={settings.APP_ENV}  DB={settings.DATABASE_URL.split('@')[-1]}")
     await init_db()
-    print(f"[startup] ENV={settings.APP_ENV}  DB={settings.DATABASE_URL}")
     await asyncio.get_event_loop().run_in_executor(None, run_startup_ingestion)
     yield
     # ── shutdown ───────────────────────────────────────────────────────────
@@ -46,7 +46,7 @@ app = FastAPI(
 # ── CORS ───────────────────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # tighten in prod
+    allow_origins=["*"],  # Allows Vercel and all other origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

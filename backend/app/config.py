@@ -3,7 +3,7 @@ config.py
 Settings loaded via pydantic-settings.
 All env vars are validated at startup.
 """
-from pydantic import Field
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -22,6 +22,13 @@ class Settings(BaseSettings):
     DATABASE_URL: str = Field(
         default="postgresql+asyncpg://airail_user:airail_pass@localhost:5432/airail_db"
     )
+
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def fix_postgres_protocol(cls, v: str) -> str:
+        if v.startswith("postgresql://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
 
     # ── Qdrant ─────────────────────────────────────────────────────────────
     QDRANT_URL: str = Field(default="http://localhost:6333")
