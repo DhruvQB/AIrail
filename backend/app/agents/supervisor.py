@@ -40,7 +40,7 @@ SUPERVISOR_PROMPT = """You are a query router for an Indian Railways assistant c
 
 Classify the user's query into exactly one of these intents:
 
-- greeting: The user is greeting, saying hello/hi/hey/good morning, asking how you are, saying thanks/bye, or any general conversational opener. No railway information is needed.
+- greeting: The user is greeting, saying hello/hi/hey/good morning, asking how you are, saying thanks/bye, or any general conversational opener.
 
 - railradar: Questions about live train running status, current position of a train, delay information, trains between two stations, train schedule/route, station arrivals/departures, platform information.
 

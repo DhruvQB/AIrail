@@ -4791,6 +4791,11 @@
          "stnCity":"Chitahra"
       },
       {
+         "stnCode":"CTL",
+         "stnName":"Chital",
+         "stnCity":"Chital"
+      },
+      {
          "stnCode":"CIT",
          "stnName":"Chitali",
          "stnCity":"Chitali"
