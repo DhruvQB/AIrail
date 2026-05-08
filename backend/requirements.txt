@@ -13,7 +13,7 @@ langchain-core==0.3.85
 langchain-groq==0.2.5
 langchain-community==0.3.21
 langchain-text-splitters==0.3.11
-langchain-experimental==0.4.1
+langchain-experimental==0.3.4
 
 # ── Authentication & Security ──────────────────────────────────────────────
 python-jose==3.5.0
