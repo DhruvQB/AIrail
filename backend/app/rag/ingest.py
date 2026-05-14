@@ -33,7 +33,7 @@ client = QdrantClient(
     url=settings.QDRANT_URL
 )
 
-COLLECTION_NAME = "AIrail"
+COLLECTION_NAME = "railway_docs"
 
 dense_embedding = get_embedding()
 sparse_embedding = get_sparse_embedding()

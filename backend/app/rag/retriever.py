@@ -25,7 +25,7 @@ def retrieve_documents(query: str, top_k: int = 5) -> list[Document]:
 
     # 1. FAST HYBRID SEARCH (NO PAYLOAD)
     search_result = client.query_points(
-        collection_name="AIrail",
+        collection_name="railway_docs",
         prefetch=[
             models.Prefetch(query=dense_vector, using="dense", limit=30),
             models.Prefetch(

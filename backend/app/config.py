@@ -32,7 +32,7 @@ class Settings(BaseSettings):
 
     # ── Qdrant ─────────────────────────────────────────────────────────────
     QDRANT_URL: str = Field(default="http://localhost:6333")
-    QDRANT_COLLECTION: str = Field(default="AIrail")
+    QDRANT_COLLECTION: str = Field(default="railway_docs")
 
     # ── External APIs ──────────────────────────────────────────────────────
     RAILRADAR_API_KEY: str = Field(default="your_railradar_key_here")
