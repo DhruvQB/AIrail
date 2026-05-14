@@ -28,7 +28,7 @@ class AgentState(TypedDict):
     """
     messages: Annotated[list[BaseMessage], add_messages]
     session_id: str
-    intent: Optional[Literal["rag", "railradar", "prs", "greeting", "guardrail"]]
+    intent: Optional[Literal["rag", "railradar", "prs", "greeting", "guardrail", "offtopic"]]
     rag_output: Optional[dict[str, Any]]
     # Populated by rag_agent after Qdrant retrieval.
     # Shape: {

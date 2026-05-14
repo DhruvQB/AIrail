@@ -16,6 +16,7 @@ from langchain_community.embeddings import FastEmbedEmbeddings
 
 import time
 import os
+from app.config import settings
 
 DATA_DIR = r"C:\\Users\\Dhruv\\Desktop\\AIrail\\backend\\data"
 INGESTED_TRACKER = os.path.join(DATA_DIR, ".ingested_files")
@@ -29,9 +30,7 @@ progress_data = {
 
 # Qdrant Client
 client = QdrantClient(
-    host="localhost",
-    port=6334,
-    prefer_grpc=True
+    url=settings.QDRANT_URL
 )
 
 COLLECTION_NAME = "AIrail"

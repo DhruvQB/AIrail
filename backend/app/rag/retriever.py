@@ -3,6 +3,7 @@ from flashrank import Ranker, RerankRequest
 from langchain_core.documents import Document
 
 from app.rag.embedding import get_embedding, get_sparse_embedding
+from app.config import settings
 
 # Initialize FlashRank ranker (loads model on import or first use)
 ranker = Ranker(model_name="ms-marco-TinyBERT-L-2-v2")
@@ -13,13 +14,14 @@ def retrieve_documents(query: str, top_k: int = 5) -> list[Document]:
     fetches the top results, and uses FlashRank to rerank them.
     """
     client = QdrantClient(
-        host="localhost",
-        port=6334,
-        prefer_grpc=True
+        url=settings.QDRANT_URL
     )
 
     dense_vector = get_embedding().embed_query(query)
     sparse_vector = get_sparse_embedding().embed_query(query)
+    print(f"Sparse type: {type(sparse_vector)}")
+    print(f"Sparse indices: {sparse_vector.indices}")
+    print(f"Sparse values: {sparse_vector.values}")
 
     # 1. FAST HYBRID SEARCH (NO PAYLOAD)
     search_result = client.query_points(

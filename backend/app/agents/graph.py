@@ -4,7 +4,7 @@ agents/graph.py
 Assembles the full LangGraph multi-agent graph.
 
 Flow:
-  START → supervisor → (railradar | prs | rag | guardrail | END for greetings)
+  START → supervisor → (railradar | prs | rag | guardrail | END for greetings and offtopic)
 
 The supervisor classifies intent, handles greetings inline, and routes
 all other intents to the appropriate agent node.
@@ -32,7 +32,7 @@ def route_to_agent(state: AgentState) -> str:
         return "prs_agent"
     elif intent == "guardrail":
         return "guardrail_agent"
-    elif intent == "greeting":
+    elif intent in ("greeting", "offtopic"):
         # Supervisor handled greetings inline and already set state["response"]
         return END
     else:
