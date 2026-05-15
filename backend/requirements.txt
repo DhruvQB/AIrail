@@ -19,15 +19,15 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 
 # ── LangChain / LangGraph stack ────────────────────────────────────────────────
-langchain>=0.3.7,<0.4.0
-langchain-core>=0.3.75,<0.4.0
-langchain-community>=0.3.7,<0.4.0
-langchain-groq>=0.2.5,<0.3.0
-langchain-qdrant>=0.1.4,<0.2.0
-langchain-text-splitters>=0.3.11,<0.4.0
-langchain-experimental>=0.3.0,<1.0.0
-langgraph>=0.2.57,<0.3.0
-langsmith>=0.1.100,<0.2.0
+langchain>=0.3.7
+langchain-core>=0.3.75
+langchain-community>=0.3.7
+langchain-groq>=0.2.5
+langchain-qdrant>=0.1.4
+langchain-text-splitters>=0.3.11
+langchain-experimental>=0.3.0
+langgraph>=0.2.57
+langsmith>=0.3.45
 
 # ── LLM clients ────────────────────────────────────────────────────────────────
 groq==0.37.1
