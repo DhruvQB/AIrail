@@ -56,7 +56,7 @@ langchain-text-splitters==0.3.11
 langgraph==0.2.57
 langgraph-checkpoint==2.1.2
 langgraph-sdk==0.1.74
-langsmith==0.3.45
+langsmith==0.1.147
 Levenshtein==0.25.1
 litellm==1.80.0
 loguru==0.7.3
