@@ -51,7 +51,7 @@ def retrieve_documents(query: str, top_k: int = 5) -> list[Document]:
     top_ids = [hit.id for hit in hits]
 
     payload_docs = client.retrieve(
-        collection_name="AIrail",
+        collection_name="railway_docs",
         ids=top_ids,
         with_payload=True
     )

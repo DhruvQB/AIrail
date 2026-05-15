@@ -18,7 +18,7 @@ import time
 import os
 from app.config import settings
 
-DATA_DIR = r"C:\\Users\\Dhruv\\Desktop\\AIrail\\backend\\data"
+DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "data")
 INGESTED_TRACKER = os.path.join(DATA_DIR, ".ingested_files")
 
 # Global Progress
@@ -30,7 +30,10 @@ progress_data = {
 
 # Qdrant Client
 client = QdrantClient(
-    url=settings.QDRANT_URL
+    url=settings.QDRANT_URL,
+    prefer_grpc=False,
+    https=True,
+    timeout=30,
 )
 
 COLLECTION_NAME = "railway_docs"
@@ -63,7 +66,7 @@ def init_collection():
                 )
             )
         )
-        print("✅ Created collection AIrail")
+        print("✅ Created collection railway_docs")
 
 
 # Load PDF
